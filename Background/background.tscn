@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://du6a1k1deej2x"]
+
+[ext_resource type="Texture2D" uid="uid://bx78n3x0vpv3w" path="res://Assets/Background.png" id="1_1j52v"]
+[ext_resource type="Script" path="res://Background/Background.gd" id="2_yqm6y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_siqf1"]
+atlas = ExtResource("1_1j52v")
+region = Rect2(0, 0, 1152, 650)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6eiv1"]
+atlas = ExtResource("1_1j52v")
+region = Rect2(0, 650, 1152, 650)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8aku7"]
+animations = [{
+"frames": [{
+"duration": 8.0,
+"texture": SubResource("AtlasTexture_siqf1")
+}, {
+"duration": 8.0,
+"texture": SubResource("AtlasTexture_6eiv1")
+}],
+"loop": true,
+"name": &"background",
+"speed": 5.0
+}]
+
+[node name="Background" type="AnimatedSprite2D"]
+position = Vector2(577.78, 325.133)
+scale = Vector2(0.999592, 0.999591)
+sprite_frames = SubResource("SpriteFrames_8aku7")
+animation = &"new_animation"
+frame_progress = 0.861595
+script = ExtResource("2_yqm6y")

@@ -1,7 +1,7 @@
 extends Area2D
 
 var speed = 5
-var damage = 5.0
+var damage = 1
 var velocity = Vector2.ZERO
 var Effects = null
 var Explosion = load("res://Effects/explosion.tscn")
@@ -10,9 +10,8 @@ func _ready():
 	velocity = Vector2(0,-speed).rotated(rotation)
 	
 
-
 func _physics_process(_delta):
-	position = position + velocity
+	position += velocity
 
 
 func _on_body_entered(body):
@@ -27,4 +26,4 @@ func _on_body_entered(body):
 
 
 func _on_timer_timeout():
-	queue_free() # Replace with function body.
+	queue_free()

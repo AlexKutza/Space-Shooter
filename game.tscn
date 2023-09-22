@@ -1,11 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://c44ghwfcuwb6s"]
+[gd_scene load_steps=6 format=3 uid="uid://c44ghwfcuwb6s"]
 
 [ext_resource type="PackedScene" uid="uid://c6nmje1f0p33n" path="res://Player/player.tscn" id="1_n1voj"]
+[ext_resource type="PackedScene" uid="uid://du6a1k1deej2x" path="res://Background/background.tscn" id="1_nk87u"]
 [ext_resource type="Script" path="res://Player/Player_Container.gd" id="2_s0bdp"]
 [ext_resource type="PackedScene" uid="uid://dgr4ikdltsw6v" path="res://Asteroid/asteroid.tscn" id="2_whq78"]
 [ext_resource type="PackedScene" uid="uid://dgfsw65dbiqiq" path="res://Enemy/enemy.tscn" id="3_6nb4p"]
 
 [node name="Game" type="Node2D"]
+
+[node name="Background" parent="." instance=ExtResource("1_nk87u")]
+animation = &"background"
+frame_progress = 0.0
 
 [node name="Asteroid_Container" type="Node2D" parent="."]
 
