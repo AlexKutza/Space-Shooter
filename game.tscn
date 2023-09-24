@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://c44ghwfcuwb6s"]
+[gd_scene load_steps=9 format=3 uid="uid://c44ghwfcuwb6s"]
 
 [ext_resource type="PackedScene" uid="uid://c6nmje1f0p33n" path="res://Player/player.tscn" id="1_n1voj"]
 [ext_resource type="PackedScene" uid="uid://du6a1k1deej2x" path="res://Background/background.tscn" id="1_nk87u"]
 [ext_resource type="Script" path="res://Player/Player_Container.gd" id="2_s0bdp"]
 [ext_resource type="PackedScene" uid="uid://dgr4ikdltsw6v" path="res://Asteroid/asteroid.tscn" id="2_whq78"]
 [ext_resource type="PackedScene" uid="uid://dgfsw65dbiqiq" path="res://Enemy/enemy.tscn" id="3_6nb4p"]
+[ext_resource type="Script" path="res://UI/HUD.gd" id="6_6oxtl"]
+[ext_resource type="FontFile" uid="uid://dwhtbvwhfcj8h" path="res://Assets/Spicy Potatos.otf" id="6_75mbr"]
+[ext_resource type="Script" path="res://UI/Menu.gd" id="8_1ynoo"]
 
 [node name="Game" type="Node2D"]
 
@@ -32,3 +35,122 @@ position = Vector2(576, 324)
 
 [node name="Enemy" parent="Enemy_Container" instance=ExtResource("3_6nb4p")]
 position = Vector2(400, 200)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HUD" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_6oxtl")
+
+[node name="Score" type="Label" parent="UI/HUD"]
+layout_mode = 0
+offset_left = 10.0
+offset_right = 210.0
+offset_bottom = 40.0
+theme_override_fonts/font = ExtResource("6_75mbr")
+theme_override_font_sizes/font_size = 30
+text = "Score:"
+vertical_alignment = 1
+
+[node name="Time" type="Label" parent="UI/HUD"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -210.0
+offset_right = -10.0
+offset_bottom = 40.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("6_75mbr")
+theme_override_font_sizes/font_size = 30
+text = "Time:"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Indicator_Container" type="Control" parent="UI/HUD"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Timer" type="Timer" parent="UI/HUD"]
+autostart = true
+
+[node name="Menu" type="Control" parent="UI"]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_1ynoo")
+
+[node name="ColorRect" type="ColorRect" parent="UI/Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0.317647, 0.392157)
+
+[node name="Label" type="Label" parent="UI/Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -248.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("6_75mbr")
+theme_override_font_sizes/font_size = 70
+text = "Pause Menu"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Restart" type="Button" parent="UI/Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -25.0
+offset_right = 100.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("6_75mbr")
+theme_override_font_sizes/font_size = 30
+text = "Restart Game"
+
+[node name="Quit" type="Button" parent="UI/Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = 50.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("6_75mbr")
+theme_override_font_sizes/font_size = 30
+text = "Quit"
+
+[connection signal="timeout" from="UI/HUD/Timer" to="UI/HUD" method="_on_timer_timeout"]
+[connection signal="pressed" from="UI/Menu/Restart" to="UI/Menu" method="_on_restart_pressed"]
+[connection signal="pressed" from="UI/Menu/Quit" to="UI/Menu" method="_on_quit_pressed"]
