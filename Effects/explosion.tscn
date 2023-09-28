@@ -460,6 +460,7 @@ animations = [{
 }]
 
 [node name="Explosion" type="AnimatedSprite2D"]
+texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_tgp6c")
 offset = Vector2(0, -30)
 script = ExtResource("2_0o2hn")

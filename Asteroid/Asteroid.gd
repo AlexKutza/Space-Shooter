@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
-var initial_speed = 100
-var health = 2
+var initial_speed = 200
+var health = 4
 
 func _ready():
 	velocity = Vector2(0,initial_speed*randf()).rotated(2*PI*randf())

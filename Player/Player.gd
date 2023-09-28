@@ -1,13 +1,15 @@
 extends CharacterBody2D
 
 var speed = 5
-var max_speed = 1000
+var max_speed = 300
 var rotate_speed = 0.08
 var nose = Vector2(0,-80)
 var Bullet = load("res://Player/bullet.tscn")
 var Effects = null
 var Explosion = load("res://Effects/explosion.tscn")
 var health = 10
+
+var Bullet_Sound = null
 
 func get_input():
 	var to_return = Vector2.ZERO
@@ -31,6 +33,9 @@ func _physics_process(_delta):
 	if Input.is_action_just_pressed("Shoot"):
 		var Effects = get_node_or_null("/root/Game/Effects")
 		if Effects != null:
+			Bullet_Sound = get_node_or_null("/root/Game/Bullet_Sound")
+			if Bullet_Sound != null:
+				Bullet_Sound.play()
 			var bullet = Bullet.instantiate()
 			bullet.position = position + nose.rotated(rotation)
 			bullet.rotation = rotation

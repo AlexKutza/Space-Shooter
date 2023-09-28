@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://dx6v25h2tqgtm"]
+
+[ext_resource type="Texture2D" uid="uid://bx78n3x0vpv3w" path="res://Assets/Background.png" id="1_la4uf"]
+[ext_resource type="Script" path="res://Background/backgroundlayer.gd" id="2_krke7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_alnxr"]
+atlas = ExtResource("1_la4uf")
+region = Rect2(0, 0, 1152, 650)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_21jgn"]
+atlas = ExtResource("1_la4uf")
+region = Rect2(0, 650, 1152, 650)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k2a0x"]
+animations = [{
+"frames": [{
+"duration": 8.0,
+"texture": SubResource("AtlasTexture_alnxr")
+}, {
+"duration": 8.0,
+"texture": SubResource("AtlasTexture_21jgn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="backgroundlayer" type="CanvasLayer"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="backgroundlayer" type="AnimatedSprite2D" parent="TextureRect"]
+position = Vector2(576, 325)
+sprite_frames = SubResource("SpriteFrames_k2a0x")
+frame = 1
+frame_progress = 0.446361
+script = ExtResource("2_krke7")

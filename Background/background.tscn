@@ -26,9 +26,9 @@ animations = [{
 }]
 
 [node name="Background" type="AnimatedSprite2D"]
+texture_filter = 1
 position = Vector2(577.78, 325.133)
 scale = Vector2(0.999592, 0.999591)
 sprite_frames = SubResource("SpriteFrames_8aku7")
 animation = &"new_animation"
-frame_progress = 0.861595
 script = ExtResource("2_yqm6y")

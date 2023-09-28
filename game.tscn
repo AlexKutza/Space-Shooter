@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c44ghwfcuwb6s"]
+[gd_scene load_steps=15 format=3 uid="uid://c44ghwfcuwb6s"]
 
 [ext_resource type="PackedScene" uid="uid://c6nmje1f0p33n" path="res://Player/player.tscn" id="1_n1voj"]
 [ext_resource type="PackedScene" uid="uid://du6a1k1deej2x" path="res://Background/background.tscn" id="1_nk87u"]
@@ -8,12 +8,42 @@
 [ext_resource type="Script" path="res://UI/HUD.gd" id="6_6oxtl"]
 [ext_resource type="FontFile" uid="uid://dwhtbvwhfcj8h" path="res://Assets/Spicy Potatos.otf" id="6_75mbr"]
 [ext_resource type="Script" path="res://UI/Menu.gd" id="8_1ynoo"]
+[ext_resource type="AudioStream" uid="uid://60o6jtbrs30" path="res://Assets/gamemusic.wav" id="9_33ux5"]
+[ext_resource type="Script" path="res://Objective.gd" id="9_vw2wy"]
+[ext_resource type="AudioStream" uid="uid://dep0q1uwwlwyw" path="res://Assets/bullet_sound.WAV" id="10_bqs4u"]
+[ext_resource type="AudioStream" uid="uid://cp50u48a8vrv1" path="res://Assets/enemy_sound.wav" id="11_ji2mx"]
+[ext_resource type="AudioStream" uid="uid://b5krkkeqsvr6h" path="res://Assets/explosion_sound.ogg" id="12_cqo7e"]
+[ext_resource type="Texture2D" uid="uid://hbq6csdqqluc" path="res://Assets/eggs.png" id="13_kdnk7"]
 
 [node name="Game" type="Node2D"]
 
 [node name="Background" parent="." instance=ExtResource("1_nk87u")]
 animation = &"background"
-frame_progress = 0.0
+
+[node name="Eggs" type="Sprite2D" parent="."]
+position = Vector2(762, 396)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("13_kdnk7")
+
+[node name="Objective" type="Label" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 651.0
+offset_top = 301.0
+offset_right = 962.0
+offset_bottom = 358.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("6_75mbr")
+theme_override_font_sizes/font_size = 38
+text = "Protect the eggs!"
+script = ExtResource("9_vw2wy")
+
+[node name="Timer" type="Timer" parent="Objective"]
+wait_time = 2.5
+autostart = true
 
 [node name="Asteroid_Container" type="Node2D" parent="."]
 
@@ -22,6 +52,9 @@ position = Vector2(100, 100)
 
 [node name="Asteroid2" parent="Asteroid_Container" instance=ExtResource("2_whq78")]
 position = Vector2(900, 500)
+
+[node name="Asteroid3" parent="Asteroid_Container" instance=ExtResource("2_whq78")]
+position = Vector2(368, 553)
 
 [node name="Effects" type="Node2D" parent="."]
 
@@ -39,6 +72,7 @@ position = Vector2(400, 200)
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="HUD" type="Control" parent="UI"]
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -48,6 +82,7 @@ grow_vertical = 2
 script = ExtResource("6_6oxtl")
 
 [node name="Score" type="Label" parent="UI/HUD"]
+texture_filter = 1
 layout_mode = 0
 offset_left = 10.0
 offset_right = 210.0
@@ -58,6 +93,7 @@ text = "Score:"
 vertical_alignment = 1
 
 [node name="Time" type="Label" parent="UI/HUD"]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -73,6 +109,7 @@ horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="Indicator_Container" type="Control" parent="UI/HUD"]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -86,6 +123,7 @@ autostart = true
 [node name="Menu" type="Control" parent="UI"]
 process_mode = 3
 visible = false
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -104,6 +142,7 @@ grow_vertical = 2
 color = Color(0, 0, 0.317647, 0.392157)
 
 [node name="Label" type="Label" parent="UI/Menu"]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -118,6 +157,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Restart" type="Button" parent="UI/Menu"]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -135,6 +175,7 @@ theme_override_font_sizes/font_size = 30
 text = "Restart Game"
 
 [node name="Quit" type="Button" parent="UI/Menu"]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -151,6 +192,23 @@ theme_override_fonts/font = ExtResource("6_75mbr")
 theme_override_font_sizes/font_size = 30
 text = "Quit"
 
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_33ux5")
+autoplay = true
+
+[node name="Bullet_Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_bqs4u")
+volume_db = 1.157
+
+[node name="Enemy_Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_ji2mx")
+volume_db = -9.823
+
+[node name="Explosion_Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_cqo7e")
+volume_db = -19.644
+
+[connection signal="timeout" from="Objective/Timer" to="Objective" method="_on_timer_timeout"]
 [connection signal="timeout" from="UI/HUD/Timer" to="UI/HUD" method="_on_timer_timeout"]
 [connection signal="pressed" from="UI/Menu/Restart" to="UI/Menu" method="_on_restart_pressed"]
 [connection signal="pressed" from="UI/Menu/Quit" to="UI/Menu" method="_on_quit_pressed"]
